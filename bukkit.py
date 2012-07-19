@@ -11,6 +11,8 @@ __author__ = 'Keith Gaughan'
 __email__ = 'k@stereochro.me'
 __version__ = '0.1.0'
 
+__all__ = ('TokenBucket', 'Collection')
+
 
 class TokenBucket(object):
     """
@@ -87,7 +89,7 @@ class Node(object):
         other.prev_node = self
 
 
-class BucketCollection(object):
+class Collection(object):
     """
     A keyed collection of token buckets.
     """
