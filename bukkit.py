@@ -95,7 +95,7 @@ class Collection(object):
     """
 
     __slots__ = (
-        'head', 'tail', 'node_map',
+        'head_node', 'tail_node', 'node_map',
         'rate', 'limit',
         'timeout',
         'clock')
