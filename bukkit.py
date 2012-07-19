@@ -137,7 +137,7 @@ class BucketCollection(object):
         order reassignment. It will also create a new token bucket if none
         match the name given in `key`.
 
-        For internal use only."
+        For internal use only.
         """
         if key in self.node_map:
             node = self.node_map[key]
