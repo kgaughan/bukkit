@@ -33,3 +33,26 @@ def test_consumption():
     assert bucket.tokens == 19
     ticks += 1
     assert bucket.tokens == 20
+
+
+def test_comparison():
+    ticks = 0
+    fake_clock = lambda: ticks
+
+    b1 = bukkit.TokenBucket(5, 20, clock=fake_clock)
+    b2 = bukkit.TokenBucket(5, 20, clock=fake_clock)
+
+    # These comparisons check when the buckets were last *used*, not the number
+    # of tokens each contains.
+    assert b1 == b2
+    ticks += 1
+    b1.consume(1)
+    assert b2 < b1
+    ticks += 1
+    b2.consume(1)
+    assert b1 < b2
+    ticks += 1
+    b1.consume(1)
+    b2.consume(1)
+    assert b1 == b2
+
