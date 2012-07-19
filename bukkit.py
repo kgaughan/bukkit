@@ -76,9 +76,9 @@ class Node(object):
         self.prev_node = None
         self.next_node = None
 
-    def insert_before(self, other):
+    def insert_after(self, other):
         """
-        Insert this node before the `other`.
+        Insert this node after `other`.
         """
         self.next_node = other
         self.prev_node = other.prev_node
@@ -154,7 +154,7 @@ class BucketCollection(object):
         """
         Attach the named token bucket at the head of the cache.
         """
-        node.insert_before(self.head_node)
+        node.insert_after(self.head_node)
 
     def consume(self, key, tokens):
         """

@@ -13,7 +13,7 @@ def test_insert():
     # Insert at tail.
     first = bukkit.Node(None)
     second = bukkit.Node(None)
-    second.insert_before(first)
+    second.insert_after(first)
     assert first.next_node is None
     assert first.prev_node is second
     assert second.next_node is first
@@ -21,7 +21,7 @@ def test_insert():
 
     # Insert between two nodes.
     third = bukkit.Node(None)
-    third.insert_before(first)
+    third.insert_after(first)
     assert first.prev_node is third
     assert second.next_node is third
     assert third.prev_node is second
@@ -32,8 +32,8 @@ def test_detach_tail():
     first = bukkit.Node(None)
     second = bukkit.Node(None)
     third = bukkit.Node(None)
-    second.insert_before(first)
-    third.insert_before(second)
+    second.insert_after(first)
+    third.insert_after(second)
     third.detach()
     assert first.next_node is None
     assert first.prev_node is second
@@ -46,8 +46,8 @@ def test_detach_middle():
     first = bukkit.Node(None)
     second = bukkit.Node(None)
     third = bukkit.Node(None)
-    second.insert_before(first)
-    third.insert_before(second)
+    second.insert_after(first)
+    third.insert_after(second)
     second.detach()
     assert first.prev_node is third
     assert third.next_node is first
