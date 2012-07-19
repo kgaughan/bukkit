@@ -80,7 +80,8 @@ class Node(object):
         """
         self.next_node = other
         self.prev_node = other.prev_node
-        self.prev_node.next_node = self
+        if self.prev_node is not None:
+            self.prev_node.next_node = self
         other.prev_node = self
 
 
