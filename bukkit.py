@@ -71,10 +71,10 @@ class Node(object):
         """
         if self.prev_node is not None:
             self.prev_node.next_node = self.next_node
-            self.prev_node = None
         if self.next_node is not None:
             self.next_node.prev_node = self.prev_node
-            self.next_node = None
+        self.prev_node = None
+        self.next_node = None
 
     def insert_before(self, other):
         """

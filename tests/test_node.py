@@ -41,3 +41,15 @@ def test_detach_tail():
     assert second.prev_node is None
     assert third.next_node is None
     assert third.prev_node is None
+
+def test_detach_middle():
+    first = bukkit.Node(None)
+    second = bukkit.Node(None)
+    third = bukkit.Node(None)
+    second.insert_before(first)
+    third.insert_before(second)
+    second.detach()
+    assert first.prev_node is third
+    assert third.next_node is first
+    assert second.prev_node is None
+    assert second.next_node is None
