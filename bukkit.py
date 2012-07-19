@@ -7,6 +7,11 @@ import time
 import weakref
 
 
+__author__ = 'Keith Gaughan'
+__email__ = 'k@stereochro.me'
+__version__ = '0.1.0'
+
+
 class TokenBucket(object):
     """
     A token bucket.
