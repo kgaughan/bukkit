@@ -101,8 +101,6 @@ class Collection(object):
         'clock')
 
     def __init__(self, rate, limit, timeout, clock=time.time):
-        if timeout < limit:
-            timeout = limit
         self.head_node = Node(None)
         self.tail_node = Node(None)
         self.head_node.prev_node = self.tail_node
