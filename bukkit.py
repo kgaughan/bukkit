@@ -123,13 +123,11 @@ class Collection(object):
         self.key_map.clear()
 
     def __contains__(self, key):
-        return key in self.node_map and self.node_map[key] is not None
+        return key in self.node_map
 
     def __getitem__(self, key):
         if key in self.node_map:
-            node = self.node_map[key]
-            if node is not None:
-                return node.obj
+            return self.node_map[key].obj
         raise IndexError("No such bucket: '%s'" % key)
 
     def _detach(self, key):
