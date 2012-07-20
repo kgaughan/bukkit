@@ -1,1 +1,10 @@
+======
+bukkit
+======
+
 A token bucket library.
+
+.. image:: https://secure.travis-ci.org/kgaughan/bukkit.png?branch=master
+   :width: 89px
+   :height: 13px
+   :target: http://travis-ci.org/kgaughan/bukkit
