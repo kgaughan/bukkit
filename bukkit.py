@@ -4,7 +4,6 @@ Keyed collections of token buckets.
 
 
 import time
-import weakref
 
 
 __author__ = 'Keith Gaughan'
@@ -95,7 +94,7 @@ class Collection(object):
     """
 
     __slots__ = (
-        'head_node', 'tail_node', 'node_map',
+        'head_node', 'tail_node', 'node_map', 'key_map',
         'rate', 'limit',
         'timeout',
         'clock')
@@ -104,7 +103,8 @@ class Collection(object):
         self.head_node = Node(None)
         self.tail_node = Node(None)
         self.tail_node.insert_after(self.head_node)
-        self.node_map = weakref.WeakValueDictionary()
+        self.node_map = {}
+        self.key_map = {}
         self.rate = rate
         self.limit = limit
         self.timeout = timeout
@@ -119,6 +119,8 @@ class Collection(object):
             node = next_node
         self.head_node.prev_node = None
         self.tail_node.next_node = None
+        self.node_map.clear()
+        self.key_map.clear()
 
     def __contains__(self, key):
         return key in self.node_map and self.node_map[key] is not None
@@ -138,13 +140,13 @@ class Collection(object):
 
         For internal use only.
         """
-        if key in self.node_map:
-            node = self.node_map[key]
+        node = self.node_map[key] if key in self.node_map else None
         if node is None:
             node = Node(
                 TokenBucket(
                     rate=self.rate, limit=self.limit, clock=self.clock))
             self.node_map[key] = node
+            self.key_map[node] = key
         else:
             node.detach()
         return node
@@ -174,5 +176,9 @@ class Collection(object):
         while node is not self.head_node and node.obj.ts <= limit:
             next_node = node.next_node
             node.detach()
+            if node in self.key_map:
+                key = self.key_map[node]
+                del self.key_map[node]
+                del self.node_map[key]
             del node
             node = next_node
