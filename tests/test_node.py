@@ -1,9 +1,9 @@
-import bukkit
+from bukkit import Node
 
 
 def test_creation():
     obj = object()
-    node = bukkit.Node(obj)
+    node = Node(obj)
     assert node.obj is obj, "Node object not assigned properly."
     assert node.prev_node is None
     assert node.next_node is None
@@ -11,8 +11,8 @@ def test_creation():
 
 def test_insert():
     # Insert at tail.
-    first = bukkit.Node(None)
-    second = bukkit.Node(None)
+    first = Node(None)
+    second = Node(None)
     second.insert_after(first)
     assert first.next_node is None
     assert first.prev_node is second
@@ -20,7 +20,7 @@ def test_insert():
     assert second.prev_node is None
 
     # Insert between two nodes.
-    third = bukkit.Node(None)
+    third = Node(None)
     third.insert_after(first)
     assert first.prev_node is third
     assert second.next_node is third
@@ -29,9 +29,9 @@ def test_insert():
 
 
 def test_detach_tail():
-    first = bukkit.Node(None)
-    second = bukkit.Node(None)
-    third = bukkit.Node(None)
+    first = Node(None)
+    second = Node(None)
+    third = Node(None)
     second.insert_after(first)
     third.insert_after(second)
     third.detach()
@@ -43,9 +43,9 @@ def test_detach_tail():
     assert third.prev_node is None
 
 def test_detach_middle():
-    first = bukkit.Node(None)
-    second = bukkit.Node(None)
-    third = bukkit.Node(None)
+    first = Node(None)
+    second = Node(None)
+    third = Node(None)
     second.insert_after(first)
     third.insert_after(second)
     second.detach()
