@@ -2,9 +2,28 @@
 bukkit
 ======
 
+:Author:
+    Keith Gaughan (http://stereochro.me)
+
+:Repo:
+    https://github.com/kgaughan/bukkit
+
+
 A token bucket library.
 
 .. image:: https://secure.travis-ci.org/kgaughan/bukkit.png?branch=master
    :width: 89px
    :height: 13px
    :target: http://travis-ci.org/kgaughan/bukkit
+
+
+Overview
+========
+
+*bukkit* is a small library to control resource consumption over time using
+`token bucket algorithm`_. It provides both a standalone class that implements
+the token bucket algorithm and a class for managing a keyed collection of
+token buckets.
+
+
+.. _token bucket algorithm: http://en.wikipedia.org/wiki/Token_bucket
