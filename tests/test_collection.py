@@ -10,6 +10,15 @@ def test_creation():
     assert buckets.tail_node.next_node is buckets.head_node
 
 
+def test_consume():
+    buckets = Collection(rate=5, limit=23, timeout=31, clock=lambda: 0)
+    # Consuming nothing ensures the thing is present.
+    buckets.consume('thingy', 0)
+    assert buckets['thingy'].tokens == 23
+    buckets.consume('thingy', 3)
+    assert buckets['thingy'].tokens == 20
+
+
 def test_contains():
     buckets = Collection(rate=5, limit=23, timeout=31, clock=lambda: 0)
 
