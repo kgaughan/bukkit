@@ -33,7 +33,7 @@ class TokenBucket(object):
         there are enough tokens in the bucket to fulfil the request, we
         return `True`, otherwise `False`.
         """
-        if 0 < tokens <= self.tokens:
+        if 0 <= tokens <= self.tokens:
             self._available -= tokens
             return True
         return False
