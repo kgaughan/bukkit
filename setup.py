@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
-import bukkit
+
 
 setup(
     name='bukkit',
-    version=bukkit.__version__,
+    version='0.1.0',
     description='Keyed collections of token buckets.',
     long_description=open('README').read(),
     url='https://github.com/kgaughan/bukkit/',
@@ -21,6 +21,6 @@ setup(
         'Programming Language :: Python',
     ],
 
-    author=bukkit.__author__,
-    author_email=bukkit.__email__
+    author='Keith Gaughan',
+    author_email='k@stereochro.me'
 )
