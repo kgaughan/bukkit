@@ -103,8 +103,7 @@ class Collection(object):
     def __init__(self, rate, limit, timeout, clock=time.time):
         self.head_node = Node(None)
         self.tail_node = Node(None)
-        self.head_node.prev_node = self.tail_node
-        self.tail_node.next_node = self.head_node
+        self.tail_node.insert_after(self.head_node)
         self.node_map = weakref.WeakValueDictionary()
         self.rate = rate
         self.limit = limit
