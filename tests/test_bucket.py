@@ -23,7 +23,7 @@ def test_consumption():
     assert bucket.consume(10)
     assert not bucket.consume(15)
     assert bucket.tokens == 10
-    
+
     ticks += 1
     assert bucket.tokens == 15
     ticks += 2
