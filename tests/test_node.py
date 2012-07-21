@@ -1,4 +1,5 @@
 from bukkit import Node
+import cPickle as pickle
 
 
 def test_creation():
@@ -28,6 +29,12 @@ def test_insert():
     assert third.next_node is first
 
 
+def test_from_list_and_iter():
+    assert Node.from_list([]) is None
+    for lst in ([1], [1, 2], [1, 2, 3]):
+        assert lst == list(Node.from_list(lst))
+
+
 def test_detach_tail():
     first = Node(None)
     second = Node(None)
@@ -41,6 +48,7 @@ def test_detach_tail():
     assert second.prev_node is None
     assert third.next_node is None
     assert third.prev_node is None
+
 
 def test_detach_middle():
     first = Node(None)

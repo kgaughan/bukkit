@@ -96,6 +96,26 @@ class Node(object):
             self.prev_node.next_node = self
         other.prev_node = self
 
+    @classmethod
+    def from_list(cls, lst):
+        head = None
+        prev = None
+        for value in lst:
+            node = cls(value)
+            if prev is None:
+                head = node
+            else:
+                prev.next_node = node
+            node.prev_node = prev
+            prev = node
+        return head
+
+    def __iter__(self):
+        current = self
+        while current is not None:
+            yield current.obj
+            current = current.next_node
+
 
 class Collection(object):
     """
