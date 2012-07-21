@@ -233,3 +233,30 @@ class Collection(object):
                 del self.node_map[key]
             del node
             node = next_node
+
+    def __getstate__(self):
+        buckets = []
+        node = self.tail_node.next_node
+        while node is not self.head_node:
+            buckets.append((self.key_map[node], node.obj))
+            node = node.next_node
+        return {
+            'rate': self.rate,
+            'limit': self.limit,
+            'timeout': self.timeout,
+            'clock': self.clock,
+            'buckets': buckets}
+
+    def __setstate__(self, state):
+        for k in ('rate', 'limit', 'timeout', 'clock'):
+            setattr(self, k, state[k])
+        self.head_node = Node(None)
+        self.tail_node = Node(None)
+        self.tail_node.insert_after(self.head_node)
+        self.node_map = {}
+        self.key_map = {}
+        for k, obj in state['buckets']:
+            node = Node(obj)
+            self.node_map[k] = node
+            self.key_map[node] = k
+            node.insert_after(self.head_node)

@@ -1,4 +1,5 @@
 from bukkit import Collection
+import cPickle as pickle
 
 
 def test_creation():
@@ -81,3 +82,21 @@ def test_purge():
     ticks += 5
     buckets.purge()
     assert len(buckets.node_map) == 0
+
+
+def test_pickle():
+    buckets = Collection(rate=3, limit=23, timeout=13)
+    buckets.consume('x1', 1)
+    buckets.consume('x2', 2)
+
+    unpickled = pickle.loads(pickle.dumps(buckets))
+
+    for attr in ('rate', 'limit', 'timeout'):
+        assert getattr(buckets, attr) == getattr(unpickled, attr)
+    assert buckets.clock is unpickled.clock
+
+    # Working under the assumption currently that if node_map's keys were
+    # populated properly and if the node chains are the same length, that
+    # everything was unpickled properly.
+    assert sorted(buckets.node_map.keys()) == sorted(unpickled.node_map.keys())
+    assert len(list(buckets.head_node)) == len(list(unpickled.head_node))
