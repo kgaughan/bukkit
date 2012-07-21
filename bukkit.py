@@ -54,6 +54,15 @@ class TokenBucket(object):
     def __cmp__(self, other):
         return cmp(self.ts, other.ts)
 
+    def __getstate__(self):
+        return dict(zip(
+            self.__slots__,
+            [getattr(self, attr) for attr in self.__slots__]))
+
+    def __setstate__(self, state):
+        for k in self.__slots__:
+            setattr(self, k, state[k])
+
 
 class Node(object):
     """Linked list node."""

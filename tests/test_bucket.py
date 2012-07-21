@@ -1,4 +1,5 @@
 from bukkit import TokenBucket
+import cPickle as pickle
 
 
 def test_creation():
@@ -55,3 +56,14 @@ def test_comparison():
     b2.consume(1)
     assert b1 == b2
 
+
+def test_pickle():
+    original = TokenBucket(5, 20)
+    original.consume(1)
+    unpickled = pickle.loads(pickle.dumps(original))
+    assert unpickled is not original
+    assert original.clock is unpickled.clock
+    assert original.ts == unpickled.ts
+    assert original.rate == unpickled.rate
+    assert original.limit == unpickled.limit
+    assert original._available == unpickled._available
