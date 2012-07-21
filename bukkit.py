@@ -116,6 +116,27 @@ class Node(object):
             yield current.obj
             current = current.next_node
 
+    def __getstate__(self):
+        node = self
+        nodes = []
+        while node is not None:
+            nodes.append(node.obj)
+            node = node.next_node
+        return {'nodes': nodes}
+
+    def __setstate__(self, state):
+        prev = None
+        for obj in state['nodes']:
+            if prev is None:
+                node = self
+                self.obj = obj
+            else:
+                node = Node(obj)
+            node.prev_node = prev
+            if prev is not None:
+                prev.next_node = node
+            prev = node
+
 
 class Collection(object):
     """

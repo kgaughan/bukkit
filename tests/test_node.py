@@ -61,3 +61,9 @@ def test_detach_middle():
     assert third.next_node is first
     assert second.prev_node is None
     assert second.next_node is None
+
+
+def test_pickle():
+    original = Node.from_list([3, 2, 1])
+    unpickled = pickle.loads(pickle.dumps(original))
+    assert list(original) == list(unpickled)
