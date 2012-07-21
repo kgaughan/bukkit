@@ -98,6 +98,9 @@ class Node(object):
 
     @classmethod
     def from_list(cls, lst):
+        """
+        Turns a list into a chain of nodes.
+        """
         head = None
         prev = None
         for value in lst:
