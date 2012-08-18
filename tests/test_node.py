@@ -1,4 +1,4 @@
-from bukkit import Node
+from bukkit.bucket import Node
 import cPickle as pickle
 
 

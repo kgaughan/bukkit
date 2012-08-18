@@ -1,16 +1,7 @@
-"""
-Keyed collections of token buckets.
-"""
+"""Keyed collections of token buckets."""
 
 
 import time
-
-
-__author__ = 'Keith Gaughan'
-__email__ = 'k@stereochro.me'
-__version__ = '0.1.0'
-
-__all__ = ('TokenBucket', 'Collection')
 
 
 class TokenBucket(object):
