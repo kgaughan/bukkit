@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 
 setup(
@@ -10,7 +10,8 @@ setup(
     long_description=open('README').read(),
     url='https://github.com/kgaughan/bukkit/',
     license='MIT',
-    py_modules=['bukkit'],
+    packages=find_packages(exclude='tests'),
+    zip_safe=True,
 
     classifiers=[
         'Development Status :: 3 - Alpha',
