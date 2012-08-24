@@ -79,14 +79,17 @@ class RequestHandler(SocketServer.StreamRequestHandler):
 
     collections = {}
 
+    def _send(self, stanza_type, attrs=None):
+        self.wfile.write(_build_stanza(stanza_type, attrs))
+
     def error(self, msg):
-        self.wfile.write(_build_stanza('!', {'m': msg}))
+        self._send('!', {'m': msg})
 
     def success(self):
-        self.wfile.write(_build_stanza('+'))
+        self._send('+')
 
     def failure(self):
-        self.wfile.write(_build_stanza('-'))
+        self._send('-')
 
     def handle(self):
         try:
@@ -103,9 +106,9 @@ class RequestHandler(SocketServer.StreamRequestHandler):
                     name=attrs['b'],
                     tokens=attrs['t'])
             else:
-                self.wfile.write(_build_stanza('!', {'m': 'WAT'}))
+                self.error('WAT')
         except ProtocolError, exc:
-            self.wfile.write(_build_stanza('!', {'m': exc.message}))
+            self.error(exc.message)
 
     def handle_create(self, rate, limit, timeout, collection):
         self.collections[collection] = bucket.Collection(
@@ -115,8 +118,7 @@ class RequestHandler(SocketServer.StreamRequestHandler):
     def handle_consume(self, collection, name, tokens):
         if collection not in self.collections:
             self.error("'%s' is not a known bucket collection" % collection)
-            return
-        if self.collections[collection].consume(name, tokens):
+        elif self.collections[collection].consume(name, tokens):
             self.success()
         else:
             self.failure()
