@@ -1,13 +1,33 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
+import re
+
+
+def read(filename):
+    with open(filename, 'r') as fh:
+        return fh.read()
+
+
+def get_metadata(module_path):
+    """Extract the metadata from a module file."""
+    matches = re.finditer(
+        r"^__(\w+?)__ *= *'(.*?)'$",
+        read(module_path),
+        re.MULTILINE)
+    return dict(
+        (match.group(1), match.group(2).decode('unicode_escape'))
+        for match in matches)
+
+
+META = get_metadata('bukkit/__init__.py')
 
 
 setup(
     name='bukkit',
-    version='0.1.0',
+    version=META['version'],
     description='Keyed collections of token buckets.',
-    long_description=open('README').read(),
+    long_description=read('README'),
     url='https://github.com/kgaughan/bukkit/',
     license='MIT',
     packages=find_packages(exclude='tests'),
@@ -22,6 +42,6 @@ setup(
         'Programming Language :: Python',
     ],
 
-    author='Keith Gaughan',
-    author_email='k@stereochro.me'
+    author=META['author'],
+    author_email=META['email']
 )
