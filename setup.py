@@ -2,7 +2,7 @@
 
 from __future__ import with_statement
 
-from setuptools import setup, find_packages
+from distutils.core import setup
 import re
 
 
@@ -32,8 +32,7 @@ setup(
     long_description=read('README'),
     url='https://github.com/kgaughan/bukkit/',
     license='MIT',
-    packages=find_packages(exclude='tests'),
-    zip_safe=True,
+    packages=['bukkit'],
 
     classifiers=[
         'Development Status :: 3 - Alpha',
