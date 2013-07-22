@@ -1,4 +1,6 @@
-"""Keyed collections of token buckets."""
+"""
+Keyed collections of token buckets.
+"""
 
 
 import time
@@ -9,7 +11,13 @@ class TokenBucket(object):
     A token bucket.
     """
 
-    __slots__ = ('clock', 'ts', 'rate', 'limit', '_available')
+    __slots__ = (
+        'clock',
+        'ts',
+        'rate',
+        'limit',
+        '_available',
+    )
 
     def __init__(self, rate, limit, clock=time.time):
         self.clock = clock
@@ -56,9 +64,15 @@ class TokenBucket(object):
 
 
 class Node(object):
-    """Linked list node."""
+    """
+    Linked list node.
+    """
 
-    __slots__ = ('prev_node', 'obj', 'next_node')
+    __slots__ = (
+        'prev_node',
+        'obj',
+        'next_node',
+    )
 
     def __init__(self, obj):
         self.obj = obj
@@ -141,7 +155,8 @@ class Collection(object):
         'head_node', 'tail_node', 'node_map', 'key_map',
         'rate', 'limit',
         'timeout',
-        'clock')
+        'clock',
+    )
 
     def __init__(self, rate, limit, timeout, clock=time.time):
         self.head_node = Node(None)
@@ -236,7 +251,8 @@ class Collection(object):
             'limit': self.limit,
             'timeout': self.timeout,
             'clock': self.clock,
-            'buckets': buckets}
+            'buckets': buckets,
+        }
 
     def __setstate__(self, state):
         for k in ('rate', 'limit', 'timeout', 'clock'):

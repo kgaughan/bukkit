@@ -6,13 +6,15 @@ from bukkit import bucket
 
 _REQS = {
     'B': ('r', 'l', 't', 'c'),
-    'C': ('t', 'c', 'b')}
+    'C': ('t', 'c', 'b'),
+}
 
 
 _RESPS = {
     '+': (),
     '-': (),
-    '!': ('m',)}
+    '!': ('m',),
+}
 
 
 class ProtocolError(Exception):
@@ -62,7 +64,7 @@ class RequestHandler(SocketServer.StreamRequestHandler):
     a set of token bucket collections. Responses are terminated by
     double-linefeeds. In the descriptions, semicolons are used to represent
     linefeeds for compactness. Field order within requests can vary, but the
-    command line must always come first. Responses 
+    command line must always come first. Responses
 
     Request format:
       B;r=<rate>;l=<limit>;t=<timeout>;c=<collection>
@@ -126,7 +128,9 @@ class RequestHandler(SocketServer.StreamRequestHandler):
 
 class Client(object):
 
-    __all__ = ('sock',)
+    __all__ = (
+        'sock',
+    )
 
     def __init__(self, path):
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
