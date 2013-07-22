@@ -1,9 +1,10 @@
 from bukkit.bucket import TokenBucket, Collection
-from bukkit.net import Client, RequestHandler, run_server
+from bukkit.client import Client, ProtocolError
 
 
-__all__ = ('TokenBucket', 'Collection', 'Client', 'RequestHandler')
-
-
-if __name__ == '__main__':
-    run_server()
+__all__ = (
+    'Client',
+    'Collection',
+    'ProtocolError',
+    'TokenBucket',
+)
